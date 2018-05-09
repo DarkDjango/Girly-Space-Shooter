@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\scripts\BoomScript.cs" />
+     <Compile Include="Assets\scripts\BossScript.cs" />
      <Compile Include="Assets\scripts\DeathAnScript.cs" />
      <Compile Include="Assets\scripts\EnemyScript.cs" />
      <Compile Include="Assets\scripts\HealthScript.cs" />
