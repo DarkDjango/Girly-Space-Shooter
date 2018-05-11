@@ -12,6 +12,8 @@ public class PlayerScript : MonoBehaviour {
 	// 2 - Store the movement and the component
 	private Vector2 movement;
 	private Rigidbody2D rigidbodyComponent;
+	public int shotLevel;
+	public bool shoot = false;
 	// Use this for initialization
 	void Start () {
 		
@@ -28,7 +30,7 @@ public class PlayerScript : MonoBehaviour {
 			speed.x * inputX,
 			speed.y * inputY);
 		// 5 - Shooting
-		bool shoot = Input.GetButton("Fire1");
+		shoot = Input.GetButton("Fire1");
 		shoot |= Input.GetButton("Fire2");
 
 		if (shoot)
@@ -84,6 +86,7 @@ public class PlayerScript : MonoBehaviour {
 
 		// Collision with enemy
 		EnemyScript enemy = collision.gameObject.GetComponent<EnemyScript>();
+		PowerUpScript powerup = collision.gameObject.GetComponent<PowerUpScript> ();
 		if (enemy != null)
 		{
 			// Kill the enemy
@@ -92,7 +95,18 @@ public class PlayerScript : MonoBehaviour {
 
 			damagePlayer = true;
 		}
-
+		if (powerup != null) {
+			shotLevel += powerup.shotXP;
+			powerup.powerGet = true;
+			if (shotLevel >= 200) {
+				WeaponScript weapon = GetComponent<WeaponScript>();
+				if (weapon != null)
+				{
+					// false because the player is not an enemy
+					weapon.shootingRate = 0.15f;
+				}
+			}
+		}
 		// Damage the player
 		if (damagePlayer)
 		{
