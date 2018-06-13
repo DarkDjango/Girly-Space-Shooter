@@ -9,6 +9,7 @@ public class LifeSystemScript : MonoBehaviour {
 	public int lifeNum;
 	private int shotLevel;
 	private int shotElement;
+	private bool shoot;
 	private PlayerScript player;
 	// Use this for initialization
 	
@@ -20,6 +21,7 @@ public class LifeSystemScript : MonoBehaviour {
 			pos = livePlayer.transform.position;
 			shotLevel = player.shotLevel;
 			shotElement = player.shotElement;
+			shoot = player.shoot;
 		}
 		else if (lifeNum > 0) {
 			shotLevel -= 50;
@@ -29,6 +31,7 @@ public class LifeSystemScript : MonoBehaviour {
 			player = livePlayer.GetComponent<PlayerScript>();
 			player.shotLevel = shotLevel;
 			player.shotElement = shotElement;
+			player.shoot = shoot;
 			lifeNum--;
 		} else {
 			print ("Game Over");

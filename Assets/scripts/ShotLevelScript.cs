@@ -25,7 +25,7 @@ public class ShotLevelScript : MonoBehaviour {
 				WeaponScript weapon = GetComponent<WeaponScript> ();
 				if (weapon != null) {
 					weapon.shotPrefab = shotPrefab0;
-					weapon.shootingRate = 0.25f;
+					weapon.shootingRate = 0.35f;
 				}
 		} else if ((player.shotLevel >= 100)&&(player.shotLevel < 200)) {
 			if (player.shotElement == 0) {
