@@ -33,12 +33,12 @@ public class PlayerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		float inputX = Input.GetAxis("Horizontal");
+		float inputY = Input.GetAxis("Vertical");
+
 		// 3 - Retrieve axis information
 		#if UNITY_STANDALONE || UNITY_WEBPLAYER
-            
-	        float inputX = Input.GetAxis("Horizontal");
-			float inputY = Input.GetAxis("Vertical");
-	            
+
 	        if(inputX != 0){
 	            inputY = 0;
 	        }
@@ -61,9 +61,9 @@ public class PlayerScript : MonoBehaviour {
                     touchOrigin.x = -1;
                     
                     if (Mathf.Abs(x) > Mathf.Abs(y))
-                        horizontal = x > 0 ? 1 : -1;
+                        inputX = x > 0 ? 1 : -1;
                     else
-                        vertical = y > 0 ? 1 : -1;
+                        inputY = y > 0 ? 1 : -1;
                 }
             }
             
