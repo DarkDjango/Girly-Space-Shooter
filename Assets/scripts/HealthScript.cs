@@ -14,18 +14,23 @@ public class HealthScript : MonoBehaviour
 	/// Enemy or player?
 	/// </summary>
 	public bool isEnemy = true;
-
+	public Transform windSpread;
+	private FreezeScript freeze;
 	/// <summary>
 	/// Inflicts damage and check if the object should be destroyed
 	/// </summary>
 	/// <param name="damageCount"></param>
-	public void Damage(int damageCount)
+	public void Damage(int damageCount, bool isSpread)
 	{
 		hp -= damageCount;
 
 		if (hp <= 0)
 		{
 			// Dead!
+			if (isSpread) {
+				var windSpreader = Instantiate(windSpread) as Transform;
+				windSpreader.position = transform.position;
+			}
 			Destroy(gameObject);
 		}
 	}
@@ -39,8 +44,12 @@ public class HealthScript : MonoBehaviour
 			// Avoid friendly fire
 			if (shot.isEnemyShot != isEnemy)
 			{
-				Damage(shot.damage);
-
+				Damage(shot.damage, shot.isSpreading);
+				if (shot.isFreezing) {
+					freeze = GetComponent<FreezeScript> ();
+					if (freeze != null)
+						freeze.gotShot = true;
+				}
 				// Destroy the shot
 				Destroy(shot.gameObject); // Remember to always target the game object, otherwise you will just remove the script
 			}

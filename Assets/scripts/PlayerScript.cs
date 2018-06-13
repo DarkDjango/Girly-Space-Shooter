@@ -12,11 +12,14 @@ public class PlayerScript : MonoBehaviour {
 	// 2 - Store the movement and the component
 	private Vector2 movement;
 	private Rigidbody2D rigidbodyComponent;
+	private ShotLevelScript shotElement;
 	public int shotLevel;
 	public bool shoot = false;
+	public bool switchElement = false;
+	private float switchTimer = 1;
 	// Use this for initialization
 	void Start () {
-		
+		shotElement = GetComponent<ShotLevelScript> ();
 	}
 	
 	// Update is called once per frame
@@ -32,7 +35,6 @@ public class PlayerScript : MonoBehaviour {
 		// 5 - Shooting
 		shoot = Input.GetButton("Fire1");
 		shoot |= Input.GetButton("Fire2");
-
 		if (shoot)
 		{
 			WeaponScript weapon = GetComponent<WeaponScript>();
@@ -42,6 +44,23 @@ public class PlayerScript : MonoBehaviour {
 				weapon.Attack(false);
 			}
 		}
+
+
+		// 5.5 Element switching button
+		switchElement = Input.GetButton ("Fire3");
+		if (switchTimer > 0)
+		{
+			switchTimer -= Time.deltaTime;
+		}
+
+		if ((switchElement)&&(switchTimer <= 0)) {
+			shotElement.shotElement++;
+			if (shotElement.shotElement > 4)
+				shotElement.shotElement = 0;
+			switchTimer = 1;
+		}
+
+
 
 		// 6 - Make sure we are not outside the camera bounds
 	    var dist = (transform.position - Camera.main.transform.position).z;
@@ -98,20 +117,12 @@ public class PlayerScript : MonoBehaviour {
 		if (powerup != null) {
 			shotLevel += powerup.shotXP;
 			powerup.powerGet = true;
-			if (shotLevel >= 200) {
-				WeaponScript weapon = GetComponent<WeaponScript>();
-				if (weapon != null)
-				{
-					// false because the player is not an enemy
-					weapon.shootingRate = 0.15f;
-				}
-			}
 		}
 		// Damage the player
 		if (damagePlayer)
 		{
 			HealthScript playerHealth = this.GetComponent<HealthScript>();
-			if (playerHealth != null) playerHealth.Damage(1);
+			if (playerHealth != null) playerHealth.Damage(1, false);
 		}
 	}
 }

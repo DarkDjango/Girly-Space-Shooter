@@ -13,7 +13,7 @@ public class WeaponScript : MonoBehaviour
 	/// Projectile prefab for shooting
 	/// </summary>
 	public Transform shotPrefab;
-
+	private FreezeScript freeze;
 	/// <summary>
 	/// Cooldown in seconds between two shots
 	/// </summary>
@@ -27,6 +27,8 @@ public class WeaponScript : MonoBehaviour
 
 	void Start()
 	{
+		if (transform.parent != null)
+			freeze = transform.parent.gameObject.GetComponent<FreezeScript>();	
 		shootCooldown = 0f;
 	}
 
@@ -80,7 +82,13 @@ public class WeaponScript : MonoBehaviour
 	{
 		get
 		{
-			return shootCooldown <= 0f;
-		}
+			if (freeze != null) {
+				if (freeze.isFrozen) {
+					return false;
+				} else
+					return shootCooldown <= 0f;
+			} else
+				return shootCooldown <= 0f;
+			}
 	}
 }
