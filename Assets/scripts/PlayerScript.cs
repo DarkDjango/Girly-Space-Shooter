@@ -12,18 +12,24 @@ public class PlayerScript : MonoBehaviour {
 	// 2 - Store the movement and the component
 	private Vector2 movement;
 	private Rigidbody2D rigidbodyComponent;
-	private ShotLevelScript shotElement;
+	public int shotElement;
+	// 0 - None
+	// 1 - Water
+	// 2 - Earth
+	// 3 - Air
+	// 4 - Fire
 	public int shotLevel;
 	public bool shoot = false;
 	public bool switchElement = false;
 	private float switchTimer = 1;
 	// Use this for initialization
 	void Start () {
-		shotElement = GetComponent<ShotLevelScript> ();
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+
 		// 3 - Retrieve axis information
 		float inputX = Input.GetAxis("Horizontal");
 		float inputY = Input.GetAxis("Vertical");
@@ -54,9 +60,9 @@ public class PlayerScript : MonoBehaviour {
 		}
 
 		if ((switchElement)&&(switchTimer <= 0)) {
-			shotElement.shotElement++;
-			if (shotElement.shotElement > 4)
-				shotElement.shotElement = 0;
+			shotElement++;
+			if (shotElement > 4)
+				shotElement = 0;
 			switchTimer = 1;
 		}
 

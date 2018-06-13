@@ -6,7 +6,7 @@ public class ShotLevelScript : MonoBehaviour {
 	private PlayerScript player;
 	// Use this for initialization
 
-	public int shotElement = 0;
+	// public int player.shotElement = 0;
 	// 0 - None
 	// 1 - Water
 	// 2 - Earth
@@ -27,42 +27,40 @@ public class ShotLevelScript : MonoBehaviour {
 					weapon.shotPrefab = shotPrefab0;
 					weapon.shootingRate = 0.25f;
 				}
-		}
-		else if ((player.shotLevel >= 100)&&(player.shotLevel < 200)) {
-			if (shotElement == 0) {
+		} else if ((player.shotLevel >= 100)&&(player.shotLevel < 200)) {
+			if (player.shotElement == 0) {
 				WeaponScript weapon = GetComponent<WeaponScript> ();
 				if (weapon != null) {
 					weapon.shotPrefab = shotPrefab0;
 					weapon.shootingRate = 0.15f;
 				}
-			} else if (shotElement == 1) {
+			} else if (player.shotElement == 1) {
 				WeaponScript weapon = GetComponent<WeaponScript> ();
 				if (weapon != null) {
 					weapon.shotPrefab = shotPrefab1;
 					weapon.shootingRate = 0.3f;
 				}
-			} else if (shotElement == 2) {
+			} else if (player.shotElement == 2) {
 				WeaponScript weapon = GetComponent<WeaponScript> ();
 				if (weapon != null) {
 					weapon.shotPrefab = shotPrefab2;
 					weapon.shootingRate = 0.6f;
 				}
-			}
-				else if (shotElement == 3) {
-					WeaponScript weapon = GetComponent<WeaponScript> ();
-					if (weapon != null) {
-						weapon.shotPrefab = shotPrefab3;
-						weapon.shootingRate = 0.25f;
-					}
-				}  else if (shotElement == 4) {
+			} else if (player.shotElement == 3) {
+				WeaponScript weapon = GetComponent<WeaponScript> ();
+				if (weapon != null) {
+					weapon.shotPrefab = shotPrefab3;
+					weapon.shootingRate = 0.25f;
+				}
+			} else if (player.shotElement == 4) {
 				WeaponScript weapon = GetComponent<WeaponScript> ();
 				if (weapon != null) {
 					weapon.shotPrefab = shotPrefab4;
 					weapon.shootingRate = 0.15f;
 				}
 			}
-		} 	else if (player.shotLevel >= 200) {
-			if (shotElement == 0) {
+		} else if (player.shotLevel >= 200) {
+			if (player.shotElement == 0) {
 				
 				WeaponScript weapon = GetComponent<WeaponScript> ();
 				if (weapon != null) {
@@ -84,7 +82,7 @@ public class ShotLevelScript : MonoBehaviour {
 				if (optionGraphics [1] != null)
 					optionGraphics [1].color = new Color (1, 1, 1, 1);
 				
-			} else if (shotElement == 1) {
+			} else if (player.shotElement == 1) {
 				
 				WeaponScript weapon = GetComponent<WeaponScript> ();
 				if (weapon != null) {
@@ -105,7 +103,7 @@ public class ShotLevelScript : MonoBehaviour {
 					optionGraphics [2].color = new Color (0, 1, 1, 1);
 				if (optionGraphics [1] != null)
 					optionGraphics [1].color = new Color (0, 1, 1, 1);
-			} else if (shotElement == 2) {
+			} else if (player.shotElement == 2) {
 
 				WeaponScript weapon = GetComponent<WeaponScript> ();
 				if (weapon != null) {
@@ -126,7 +124,7 @@ public class ShotLevelScript : MonoBehaviour {
 					optionGraphics [2].color = new Color (0, 1, 0, 1);
 				if (optionGraphics [1] != null)
 					optionGraphics [1].color = new Color (0, 1, 0, 1);
-			} else if (shotElement == 3) {
+			} else if (player.shotElement == 3) {
 
 				WeaponScript weapon = GetComponent<WeaponScript> ();
 				if (weapon != null) {
@@ -147,7 +145,7 @@ public class ShotLevelScript : MonoBehaviour {
 					optionGraphics [2].color = new Color (0.75f, 0, 1, 1);
 				if (optionGraphics [1] != null)
 					optionGraphics [1].color = new Color (0.75f, 0, 1, 1);
-			} else if (shotElement == 4) {
+			} else if (player.shotElement == 4) {
 
 				WeaponScript weapon = GetComponent<WeaponScript> ();
 				if (weapon != null) {

@@ -8,6 +8,7 @@ public class LifeSystemScript : MonoBehaviour {
 	private Vector3 pos;
 	public int lifeNum;
 	private int shotLevel;
+	private int shotElement;
 	private PlayerScript player;
 	// Use this for initialization
 	
@@ -18,6 +19,7 @@ public class LifeSystemScript : MonoBehaviour {
 			player = livePlayer.GetComponent<PlayerScript> ();
 			pos = livePlayer.transform.position;
 			shotLevel = player.shotLevel;
+			shotElement = player.shotElement;
 		}
 		else if (lifeNum > 0) {
 			shotLevel -= 50;
@@ -26,6 +28,7 @@ public class LifeSystemScript : MonoBehaviour {
 			livePlayer = GameObject.FindGameObjectWithTag("Char");
 			player = livePlayer.GetComponent<PlayerScript>();
 			player.shotLevel = shotLevel;
+			player.shotElement = shotElement;
 			lifeNum--;
 		} else {
 			print ("Game Over");
