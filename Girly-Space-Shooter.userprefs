@@ -1,19 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\LifeSystemScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\PlayerScript.cs">
     <Files>
-      <File FileName="Assets\scripts\PlayerScript.cs" Line="48" Column="1" />
-      <File FileName="Assets\scripts\PowerUpScript.cs" Line="13" Column="2" />
-      <File FileName="Assets\scripts\HealthScript.cs" Line="32" Column="17" />
-      <File FileName="Assets\scripts\BoomScript.cs" Line="8" Column="21" />
-      <File FileName="Assets\scripts\MercyScript.cs" Line="11" Column="14" />
-      <File FileName="Assets\scripts\ShotLevelScript.cs" Line="144" Column="39" />
-      <File FileName="Assets\scripts\IcicleAcelScript.cs" Line="8" Column="30" />
-      <File FileName="Assets\scripts\ShotScript.cs" Line="23" Column="3" />
-      <File FileName="Assets\scripts\EnemyScript.cs" Line="68" Column="37" />
-      <File FileName="Assets\scripts\SpreadFireScript.cs" Line="20" Column="3" />
-      <File FileName="Assets\scripts\WeaponScript.cs" Line="37" Column="1" />
-      <File FileName="Assets\scripts\LifeSystemScript.cs" Line="21" Column="4" />
+      <File FileName="Assets\scripts\PlayerScript.cs" Line="55" Column="16" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

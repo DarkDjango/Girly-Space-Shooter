@@ -25,7 +25,11 @@ public class PlayerScript : MonoBehaviour {
 	// Use this for initialization
 
 	/// 3 - Swipe Controls
-	private Vector2 touchOrigin = -Vector2.one;
+	private Vector2 direction;
+	private float directionChangeSpeed;
+	public int factorTouchMovementSpeed;
+	public float factorDirectionAcceptance;
+
 	void Start () {
 		
 	}
@@ -47,24 +51,63 @@ public class PlayerScript : MonoBehaviour {
             
         	if (Input.touchCount > 0){
                 
+        		Touch myTouch = Input.touches[0];
+
+        		if (myTouch.phase == TouchPhase.Moved){
+
+        			direction = myTouch.deltaPosition;
+        			directionChangeSpeed = myTouch.deltaPosition.magnitude/myTouch.deltaTime;
+        			directionChangeSpeed /= factorTouchMovementSpeed;
+
+        			if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y)){
+        				if(Mathf.Abs(direction.y) < Mathf.Abs(direction.x)*factorDirectionAcceptance){
+        					inputX = direction.x > 0 ? directionChangeSpeed  : -directionChangeSpeed;
+        				}else{
+        					inputX = direction.x > 0 ? directionChangeSpeed  : -directionChangeSpeed;
+							inputY = direction.y > 0 ? directionChangeSpeed  : -directionChangeSpeed ;
+        				}
+        			}else{
+        				if(Mathf.Abs(direction.x) < Mathf.Abs(direction.y)*factorDirectionAcceptance){
+        					inputY = direction.y > 0 ? directionChangeSpeed  : -directionChangeSpeed ;
+        				}else{
+        					inputX = direction.x > 0 ? directionChangeSpeed  : -directionChangeSpeed;
+							inputY = direction.y > 0 ? directionChangeSpeed  : -directionChangeSpeed ;
+        				}
+        			}
+
+        		}
+
                 //Store the first touch detected
-                Touch myTouch = Input.touches[0];
+   //             Touch myTouch = Input.touches[0];
                 
-                if (myTouch.phase == TouchPhase.Began){
-                    touchOrigin = myTouch.position;
-                }
-                
-                else if (myTouch.phase == TouchPhase.Ended && touchOrigin.x >= 0){
-                    Vector2 touchEnd = myTouch.position;
-                    float x = touchEnd.x - touchOrigin.x;
-                    float y = touchEnd.y - touchOrigin.y;
-                    touchOrigin.x = -1;
+     //            if (myTouch.phase == TouchPhase.Began){
+     //                touchOrigin = myTouch.position;
+     //            }
+
+     //            if (myTouch.phase == TouchPhase.Moved){
+					// Vector2 touchActual = myTouch.position;
+					// float x = touchActual.x - touchOrigin.x;
+	    //             float y = touchActual.y - touchOrigin.y;
+
+	    //             touchOrigin.x = -1;
+	                    
+					// if (Mathf.Abs(x) > Mathf.Abs(y))
+					// 	inputX = x > 0 ? 1 : -1;
+					// else
+					// 	inputY = y > 0 ? 1 : -1;
+     //            }
+
+                // else if (myTouch.phase == TouchPhase.Moved && touchOrigin.x >= 0){
+                //     Vector2 touchEnd = myTouch.position;
+                //     float x = touchEnd.x - touchOrigin.x;
+                //     float y = touchEnd.y - touchOrigin.y;
+                //     touchOrigin.x = -1;
                     
-                    if (Mathf.Abs(x) > Mathf.Abs(y))
-                        inputX = x > 0 ? 1 : -1;
-                    else
-                        inputY = y > 0 ? 1 : -1;
-                }
+                //     if (Mathf.Abs(x) > Mathf.Abs(y))
+                //         inputX = x > 0 ? 1 : -1;
+                //     else
+                //         inputY = y > 0 ? 1 : -1;
+                // }
             }
             
         #endif 
