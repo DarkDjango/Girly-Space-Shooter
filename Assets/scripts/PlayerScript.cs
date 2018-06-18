@@ -33,14 +33,20 @@ public class PlayerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+		Vector2 mousePosition = new Vector2(0,0);
 		// 3 - Retrieve axis information
 		#if UNITY_STANDALONE || UNITY_WEBPLAYER
 
-			Vector2 mousePosition =  Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x,Input.mousePosition.y));
+			mousePosition =  Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x,Input.mousePosition.y));
 			
         #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
             
-			Vector2 mousePosition =  Camera.main.ScreenToWorldPoint(new Vector2(Input.GetTouch(0).position.x,Input.GetTouch(0).position.y));
+            if (Input.touches[0].phase == TouchPhase.Ended){
+				mousePosition.x=0;
+				mousePosition.y=0;
+			}else{
+				mousePosition =  Camera.main.ScreenToWorldPoint(new Vector2(Input.GetTouch(0).position.x,Input.GetTouch(0).position.y));
+			}
             
         #endif 
 
@@ -48,7 +54,7 @@ public class PlayerScript : MonoBehaviour {
 		float inputY = 0;
 
 		Vector2 comparation = new Vector2(Mathf.Abs(rigidbodyComponent.position.x - mousePosition.x), Mathf.Abs(rigidbodyComponent.position.y - mousePosition.y));
-		if(comparation.x < distanceCharTouch  && comparation.y <  distanceCharTouch){
+		if( (comparation.x < distanceCharTouch  && comparation.y <  distanceCharTouch) || (mousePosition.x==0 && mousePosition.y==0) ){
 			inputX = 0;
 			inputY = 0;
 		}else if(comparation.x < distanceCharTouch  && comparation.y >  distanceCharTouch){
