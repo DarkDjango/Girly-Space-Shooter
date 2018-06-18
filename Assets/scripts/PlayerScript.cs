@@ -22,13 +22,9 @@ public class PlayerScript : MonoBehaviour {
 	public bool shoot = true;
 	public bool switchElement = false;
 	private float switchTimer = 1;
+	public float distanceCharTouch = 0.2f;
 	// Use this for initialization
 
-	/// 3 - Swipe Controls
-	private Vector2 direction;
-	private float directionChangeSpeed;
-	public int factorTouchMovementSpeed;
-	public float factorDirectionAcceptance;
 
 	void Start () {
 		
@@ -37,86 +33,38 @@ public class PlayerScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		float inputX = Input.GetAxis("Horizontal");
-		float inputY = Input.GetAxis("Vertical");
-
 		// 3 - Retrieve axis information
 		#if UNITY_STANDALONE || UNITY_WEBPLAYER
 
-	        if(inputX != 0){
-	            inputY = 0;
-	        }
-	        
+			Vector2 mousePosition =  Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x,Input.mousePosition.y));
+			
         #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
             
-        	if (Input.touchCount > 0){
-                
-        		Touch myTouch = Input.touches[0];
-
-        		if (myTouch.phase == TouchPhase.Moved){
-
-        			direction = myTouch.deltaPosition;
-        			directionChangeSpeed = myTouch.deltaPosition.magnitude/myTouch.deltaTime;
-        			directionChangeSpeed /= factorTouchMovementSpeed;
-
-        			if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y)){
-        				if(Mathf.Abs(direction.y) < Mathf.Abs(direction.x)*factorDirectionAcceptance){
-        					inputX = direction.x > 0 ? directionChangeSpeed  : -directionChangeSpeed;
-        				}else{
-        					inputX = direction.x > 0 ? directionChangeSpeed  : -directionChangeSpeed;
-							inputY = direction.y > 0 ? directionChangeSpeed  : -directionChangeSpeed ;
-        				}
-        			}else{
-        				if(Mathf.Abs(direction.x) < Mathf.Abs(direction.y)*factorDirectionAcceptance){
-        					inputY = direction.y > 0 ? directionChangeSpeed  : -directionChangeSpeed ;
-        				}else{
-        					inputX = direction.x > 0 ? directionChangeSpeed  : -directionChangeSpeed;
-							inputY = direction.y > 0 ? directionChangeSpeed  : -directionChangeSpeed ;
-        				}
-        			}
-
-        		}
-
-                //Store the first touch detected
-   //             Touch myTouch = Input.touches[0];
-                
-     //            if (myTouch.phase == TouchPhase.Began){
-     //                touchOrigin = myTouch.position;
-     //            }
-
-     //            if (myTouch.phase == TouchPhase.Moved){
-					// Vector2 touchActual = myTouch.position;
-					// float x = touchActual.x - touchOrigin.x;
-	    //             float y = touchActual.y - touchOrigin.y;
-
-	    //             touchOrigin.x = -1;
-	                    
-					// if (Mathf.Abs(x) > Mathf.Abs(y))
-					// 	inputX = x > 0 ? 1 : -1;
-					// else
-					// 	inputY = y > 0 ? 1 : -1;
-     //            }
-
-                // else if (myTouch.phase == TouchPhase.Moved && touchOrigin.x >= 0){
-                //     Vector2 touchEnd = myTouch.position;
-                //     float x = touchEnd.x - touchOrigin.x;
-                //     float y = touchEnd.y - touchOrigin.y;
-                //     touchOrigin.x = -1;
-                    
-                //     if (Mathf.Abs(x) > Mathf.Abs(y))
-                //         inputX = x > 0 ? 1 : -1;
-                //     else
-                //         inputY = y > 0 ? 1 : -1;
-                // }
-            }
+			Vector2 mousePosition =  Camera.main.ScreenToWorldPoint(new Vector2(Input.GetTouch(0).position.x,Input.GetTouch(0).position.y));
             
         #endif 
 
+		float inputX = 0;
+		float inputY = 0;
+
+		Vector2 comparation = new Vector2(Mathf.Abs(rigidbodyComponent.position.x - mousePosition.x), Mathf.Abs(rigidbodyComponent.position.y - mousePosition.y));
+		if(comparation.x < distanceCharTouch  && comparation.y <  distanceCharTouch){
+			inputX = 0;
+			inputY = 0;
+		}else if(comparation.x < distanceCharTouch  && comparation.y >  distanceCharTouch){
+			inputX = 0;
+			inputY = mousePosition.y > rigidbodyComponent.position.y ? 1  : -1;
+		}else if(comparation.x > distanceCharTouch  && comparation.y < distanceCharTouch){
+			inputX = mousePosition.x > rigidbodyComponent.position.x ? 1  : -1;
+			inputY = 0;
+		}else{
+			inputX = mousePosition.x > rigidbodyComponent.position.x ? 1  : -1;
+			inputY = mousePosition.y > rigidbodyComponent.position.y ? 1  : -1;
+		}
 
 		// 4 - Movement per direction
-		movement = new Vector2(
-			speed.x * inputX,
-			speed.y * inputY);
+		//movement = new Vector2(inputX, inputY);
+		movement = new Vector2(speed.x * inputX, speed.y * inputY);
 
 		// 5 - Shooting
 		//shoot = Input.GetButton("Fire1");
@@ -169,7 +117,9 @@ public class PlayerScript : MonoBehaviour {
 	      transform.position.z
 	    );
 
-		
+		// 7 - Move the game object
+		rigidbodyComponent.velocity = movement;
+
 	}
 
 	void FixedUpdate()
@@ -177,8 +127,6 @@ public class PlayerScript : MonoBehaviour {
 		// 6 - Get the component and store the reference
 		if (rigidbodyComponent == null) rigidbodyComponent = GetComponent<Rigidbody2D>();
 
-		// 7 - Move the game object
-		rigidbodyComponent.velocity = movement;
 	}
 
 	void OnCollisionEnter2D(Collision2D collision)
