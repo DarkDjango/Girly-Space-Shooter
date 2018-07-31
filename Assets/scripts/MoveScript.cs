@@ -37,16 +37,11 @@ public class MoveScript : MonoBehaviour
 
 	/// Chasing = perseguir o player
 	public bool AI_chasing;
-	public float stoppingDistance;
 
 	private Transform target;
 	private float rotationAngle;
 
 	void Start(){
-		
-		if(AI_chasing == true){
-			target = GameObject.FindGameObjectWithTag("Char").transform;
-		}
 
 	}
 
@@ -97,6 +92,8 @@ public class MoveScript : MonoBehaviour
 			}
 
 		} else if(AI_chasing == true){
+
+			target = GameObject.FindGameObjectWithTag("Char").transform;
 
 			Vector2 chasingDirection = (target.position - transform.position).normalized;
 			rotationAngle = Mathf.Atan2(chasingDirection.y,chasingDirection.x)*Mathf.Rad2Deg;

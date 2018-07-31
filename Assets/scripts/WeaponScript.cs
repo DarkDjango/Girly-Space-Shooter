@@ -22,22 +22,44 @@ public class WeaponScript : MonoBehaviour
 	//--------------------------------
 	// 2 - Cooldown
 	//--------------------------------
-
 	private float shootCooldown;
+
+	// AI Stuff
+    // Shoot: atira na direção do player sem rotacionar o monstro como no caso do chase
+    public bool AI_shoot;
+    //Utilizados caso exista n armas e deseja-se colocar uma mirando no alvo e o resto em volta disso
+    public int AI_i; //Numerar armas de 1 a n neste parametro
+    public int AI_n; //n total de armas no enemy
+    private float portion;
+
+	private Transform target;
+	private float rotationAngle;
 
 	void Start()
 	{
 		if (transform.parent != null)
 			freeze = transform.parent.gameObject.GetComponent<FreezeScript>();	
 		shootCooldown = 0f;
+
+
+        if(AI_shoot == true){
+			portion = 360/AI_n;
+		}
 	}
 
 	void Update()
 	{
-		if (shootCooldown > 0)
-		{
+		if (shootCooldown > 0){
 			shootCooldown -= Time.deltaTime;
 		}
+
+		if(AI_shoot){
+			target = GameObject.FindGameObjectWithTag("Char").transform;
+			Vector2 directionToPlayer = (target.position - transform.position).normalized;
+			rotationAngle = Mathf.Atan2(directionToPlayer.y,directionToPlayer.x)*Mathf.Rad2Deg;
+			transform.rotation = Quaternion.Euler(0,0,rotationAngle+portion*AI_i);
+		}
+
 	}
 
 	//--------------------------------

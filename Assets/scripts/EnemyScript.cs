@@ -11,8 +11,6 @@ public class EnemyScript : MonoBehaviour
     private Collider2D coliderComponent;
     private SpriteRenderer rendererComponent;
 
-    public bool AI;
-
     void Awake()
     {
         // Retrieve the weapon only once
@@ -41,6 +39,7 @@ public class EnemyScript : MonoBehaviour
         {
             weapon.enabled = false;
         }
+
     }
 
     void Update()
@@ -55,22 +54,15 @@ public class EnemyScript : MonoBehaviour
         }
         else
         {
-        	if(AI == true){
 
-        		
+	        // Auto-fire
+	        foreach (WeaponScript weapon in weapons){
+	                
+				if (weapon != null && weapon.enabled && weapon.CanAttack){
+	                weapon.Attack(true);
+				}
 
-        	}else{
-
-	            // Auto-fire
-	            foreach (WeaponScript weapon in weapons)
-	            {
-	                if (weapon != null && weapon.enabled && weapon.CanAttack)
-	                {
-	                    weapon.Attack(true);
-	                }
-	            }
-
-        	}
+			}
 
 
             // 4 - Out of the camera ? Destroy the game object.
