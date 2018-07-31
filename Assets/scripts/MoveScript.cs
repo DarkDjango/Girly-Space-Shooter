@@ -20,6 +20,10 @@ public class MoveScript : MonoBehaviour
 	private Vector2 movement;
 	private Rigidbody2D rigidbodyComponent;
 
+	/// Especial boss stuff
+	public bool rotationBoss;
+	public float rotationSpeed;
+
 	/// AI Stuff
 	/// Running shot = fugir de tiros
 	public bool AI_running_shot;
@@ -101,6 +105,13 @@ public class MoveScript : MonoBehaviour
 			direction.y = chasingDirection.y;
 			transform.rotation = Quaternion.Euler(0,0,rotationAngle+180);
 
+		}
+
+		if(rotationBoss == true){
+			float t = (Mathf.Sin (Time.time * rotationSpeed * Mathf.PI * 2.0f) + 1.0f) / 2.0f;
+			print(t);
+
+			transform.eulerAngles = Vector3.Lerp ( new Vector3(0,0,0), new Vector3(0,0,360), t);
 		}
 		
 		// 2 - Movement
