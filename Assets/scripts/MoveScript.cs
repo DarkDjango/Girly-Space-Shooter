@@ -36,6 +36,7 @@ public class MoveScript : MonoBehaviour
 	public float stoppingDistance;
 
 	private Transform target;
+	private float rotationAngle;
 
 	void Start(){
 		
@@ -46,9 +47,6 @@ public class MoveScript : MonoBehaviour
 	}
 
 	void Update(){
-
-		//threats = GameObject.FindGameObjectsWithTag("PlayerShot");
-		//float lowestDistance = 4;
 
 		if(AI_running_shot == true){
 
@@ -94,9 +92,14 @@ public class MoveScript : MonoBehaviour
 				}
 			}
 
-		} else if(AI_running_shot == true){
+		} else if(AI_chasing == true){
 
+			Vector2 chasingDirection = (target.position - transform.position).normalized;
+			rotationAngle = Mathf.Atan2(chasingDirection.y,chasingDirection.x)*Mathf.Rad2Deg;
 
+			direction.x = chasingDirection.x;
+			direction.y = chasingDirection.y;
+			transform.rotation = Quaternion.Euler(0,0,rotationAngle+180);
 
 		}
 		
@@ -114,5 +117,6 @@ public class MoveScript : MonoBehaviour
 
 		// Apply movement to the rigidbody
 		rigidbodyComponent.velocity = movement;
+
 	}
 }
