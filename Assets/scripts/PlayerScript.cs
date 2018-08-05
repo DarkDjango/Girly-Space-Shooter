@@ -12,27 +12,54 @@ public class PlayerScript : MonoBehaviour {
 	// 2 - Store the movement and the component
 	private Vector2 movement;
 	private Rigidbody2D rigidbodyComponent;
+	public int setElement;
+	public int setElement2;
 	public int shotElement;
+	public bool shieldActive;
 	// 0 - None
 	// 1 - Water
 	// 2 - Earth
 	// 3 - Air
 	// 4 - Fire
 	public int shotLevel;
+	public int magic;
+	public float magicCooldown;
+	public float magicCooldownTime = 5f;
 	public bool shoot = true;
-	public bool switchElement = false;
+	public bool switchElement = true;
+	public bool switchShield;
 	private float switchTimer = 1;
+	private float shieldTimer = 1;
 	public float distanceCharTouch = 0.2f;
 	// Use this for initialization
 
 
 	void Start () {
-		
 	}
 	
 	// Update is called once per frame
 	void Update () {
+		// Magic restoration control
+		if (magicCooldown > 0){
+			magicCooldown -= Time.deltaTime;
+		}
+		if (magicCooldown <= 0) {
+			magic += 4;
+			magicCooldown = magicCooldownTime;
+		}
+		// Shot level max. and min. control
+		if (shotLevel < 0)
+			shotLevel = 0;
+		else if (shotLevel > 300)
+			shotLevel = 300;
 
+		// Magic points max. and min. control
+		if (magic < 0) {
+			shotElement = 0;
+			shieldActive = false;
+			magic = 0;
+		} else if (magic > 120)
+			magic = 120;
 		Vector2 mousePosition = new Vector2(0,0);
 		// 3 - Retrieve axis information
 		#if UNITY_STANDALONE || UNITY_WEBPLAYER
@@ -81,7 +108,24 @@ public class PlayerScript : MonoBehaviour {
 			{
 				// false because the player is not an enemy
 				weapon.Attack(false);
+
 			}
+		}
+
+
+		// 5.2 Shield activation button
+
+		switchShield = Input.GetButton ("Fire1");
+		if (shieldTimer > 0) {
+			shieldTimer -= Time.deltaTime;
+		}
+
+		if ((switchShield)&&(shieldTimer <= 0)) {
+			if (shieldActive)
+				shieldActive = false;
+			else
+				shieldActive = true;
+			switchTimer = 1;
 		}
 
 
@@ -92,8 +136,9 @@ public class PlayerScript : MonoBehaviour {
 		}
 
 		if ((switchElement)&&(switchTimer <= 0)) {
-			shotElement++;
-			if (shotElement > 4)
+			if (shotElement == 0)
+				shotElement = setElement;
+			else
 				shotElement = 0;
 			switchTimer = 1;
 		}
@@ -141,7 +186,6 @@ public class PlayerScript : MonoBehaviour {
 
 		// Collision with enemy
 		EnemyScript enemy = collision.gameObject.GetComponent<EnemyScript>();
-		PowerUpScript powerup = collision.gameObject.GetComponent<PowerUpScript> ();
 		if (enemy != null)
 		{
 			// Kill the enemy
@@ -150,15 +194,22 @@ public class PlayerScript : MonoBehaviour {
 
 			damagePlayer = true;
 		}
-		if (powerup != null) {
-			shotLevel += powerup.shotXP;
-			powerup.powerGet = true;
-		}
 		// Damage the player
 		if (damagePlayer)
 		{
 			HealthScript playerHealth = this.GetComponent<HealthScript>();
 			if (playerHealth != null) playerHealth.Damage(1, false);
+		}
+	}
+
+	void OnTriggerEnter2D(Collider2D other) 
+	{
+		PowerUpScript powerup = other.gameObject.GetComponent<PowerUpScript> ();
+		if (powerup != null) {
+			
+			shotLevel += powerup.shotXP;
+			powerup.powerGet = true;
+		
 		}
 	}
 }

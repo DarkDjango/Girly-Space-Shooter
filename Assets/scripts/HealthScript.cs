@@ -54,5 +54,12 @@ public class HealthScript : MonoBehaviour
 				Destroy(shot.gameObject); // Remember to always target the game object, otherwise you will just remove the script
 			}
 		}
+		// Is it the Fire Shield?
+		FireShieldScript shield = otherCollider.gameObject.GetComponent<FireShieldScript>();
+		if ((shield != null)&&(isEnemy)) {
+			Damage (3, false);
+			shield.hit = true;
+		}
+
 	}
 }

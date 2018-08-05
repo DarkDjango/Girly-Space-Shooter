@@ -12,7 +12,7 @@ public class ShotLevelScript : MonoBehaviour {
 	// 2 - Earth
 	// 3 - Air
 	// 4 - Fire
-	public Transform shotPrefab0, shotPrefab1, shotPrefab2, shotPrefab3, shotPrefab4, shotPrefab5, optionPrefab0, optionPrefab1, optionPrefab2, optionPrefab3, optionPrefab4, optionPrefab5;
+	public Transform shotPrefab0; public Transform shotPrefab1; public Transform shotPrefab2; public Transform shotPrefab3; public Transform shotPrefab4; public Transform shotPrefab5; public Transform optionPrefab0; public Transform optionPrefab1; public Transform optionPrefab2; public Transform optionPrefab3; public Transform optionPrefab4; public Transform optionPrefab5;
 	public WeaponScript[] optionShots; 
 	public SpriteRenderer[] optionGraphics;
 	void Start () {

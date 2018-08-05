@@ -14,6 +14,7 @@ public class WeaponScript : MonoBehaviour
 	/// </summary>
 	public Transform shotPrefab;
 	private FreezeScript freeze;
+	private PlayerScript player;
 	/// <summary>
 	/// Cooldown in seconds between two shots
 	/// </summary>
@@ -73,6 +74,23 @@ public class WeaponScript : MonoBehaviour
 	{
 		if (CanAttack)
 		{
+			if (!isEnemy) {				
+				target = GameObject.FindGameObjectWithTag("Char").transform;
+				player = target.GetComponent<PlayerScript>();	
+				if (GetComponent<OptionScript>() == null) {
+					if (player.shotLevel >= 100) {
+						if (player.shotElement == 1) {
+							player.magic -= 16;
+						} else if (player.shotElement == 2) {
+							player.magic -= 24;
+						} else if (player.shotElement == 3) {
+							player.magic -= 8;
+						} else if (player.shotElement == 4) {
+							player.magic -= 1;
+						}
+					}
+				}
+			}
 			shootCooldown = shootingRate;
 
 			// Create a new shot
