@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class DropScript : MonoBehaviour {
 	public Transform droppedItem;
-	// Use this for initialization
+	public int dropProb;
 
 	void OnDestroy()
 	{
-		var itemTransform = Instantiate(droppedItem) as Transform;
-		// Assign position
-		itemTransform.position = transform.position;
+		int randomNumber = Random.Range(1,101);
+		if(randomNumber <= dropProb){
+			var itemTransform = Instantiate(droppedItem) as Transform;
+			itemTransform.position = transform.position;
+		}
 	}
 }

@@ -61,10 +61,16 @@ public class PlayerScript : MonoBehaviour {
 		} else if (magic > 120)
 			magic = 120;
 		Vector2 mousePosition = new Vector2(0,0);
+
+		float inputX = 0;
+		float inputY = 0;
+
 		// 3 - Retrieve axis information
 		#if UNITY_STANDALONE || UNITY_WEBPLAYER
+			inputX = Input.GetAxis("Horizontal");
+			inputY = Input.GetAxis("Vertical");
 
-			mousePosition =  Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x,Input.mousePosition.y));
+			//mousePosition =  Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x,Input.mousePosition.y));
 			
         #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
             
@@ -74,26 +80,23 @@ public class PlayerScript : MonoBehaviour {
 			}else{
 				mousePosition =  Camera.main.ScreenToWorldPoint(new Vector2(Input.GetTouch(0).position.x,Input.GetTouch(0).position.y));
 			}
+
+			Vector2 comparation = new Vector2(Mathf.Abs(rigidbodyComponent.position.x - mousePosition.x), Mathf.Abs(rigidbodyComponent.position.y - mousePosition.y));
+			if( (comparation.x < distanceCharTouch  && comparation.y <  distanceCharTouch) || (mousePosition.x==0 && mousePosition.y==0) ){
+				inputX = 0;
+				inputY = 0;
+			}else if(comparation.x < distanceCharTouch  && comparation.y >  distanceCharTouch){
+				inputX = 0;
+				inputY = mousePosition.y > rigidbodyComponent.position.y ? 1  : -1;
+			}else if(comparation.x > distanceCharTouch  && comparation.y < distanceCharTouch){
+				inputX = mousePosition.x > rigidbodyComponent.position.x ? 1  : -1;
+				inputY = 0;
+			}else{
+				inputX = mousePosition.x > rigidbodyComponent.position.x ? 1  : -1;
+				inputY = mousePosition.y > rigidbodyComponent.position.y ? 1  : -1;
+			}
             
         #endif 
-
-		float inputX = 0;
-		float inputY = 0;
-
-		Vector2 comparation = new Vector2(Mathf.Abs(rigidbodyComponent.position.x - mousePosition.x), Mathf.Abs(rigidbodyComponent.position.y - mousePosition.y));
-		if( (comparation.x < distanceCharTouch  && comparation.y <  distanceCharTouch) || (mousePosition.x==0 && mousePosition.y==0) ){
-			inputX = 0;
-			inputY = 0;
-		}else if(comparation.x < distanceCharTouch  && comparation.y >  distanceCharTouch){
-			inputX = 0;
-			inputY = mousePosition.y > rigidbodyComponent.position.y ? 1  : -1;
-		}else if(comparation.x > distanceCharTouch  && comparation.y < distanceCharTouch){
-			inputX = mousePosition.x > rigidbodyComponent.position.x ? 1  : -1;
-			inputY = 0;
-		}else{
-			inputX = mousePosition.x > rigidbodyComponent.position.x ? 1  : -1;
-			inputY = mousePosition.y > rigidbodyComponent.position.y ? 1  : -1;
-		}
 
 		// 4 - Movement per direction
 		//movement = new Vector2(inputX, inputY);
