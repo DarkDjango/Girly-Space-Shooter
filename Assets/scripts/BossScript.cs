@@ -11,7 +11,7 @@ public class BossScript : MonoBehaviour
     private WeaponScript[] weapons;
     private Collider2D coliderComponent;
     private SpriteRenderer rendererComponent;
-    private AudioSource audioComponent;
+  //  private AudioSource audioComponent;
     private float originalDirY;
 
     void Awake()
@@ -26,7 +26,7 @@ public class BossScript : MonoBehaviour
 
         rendererComponent = GetComponent<SpriteRenderer>();
 
-        audioComponent = GetComponent<AudioSource>();
+//        audioComponent = GetComponent<AudioSource>();
 
     }
 
@@ -37,7 +37,7 @@ public class BossScript : MonoBehaviour
 
         // Disable everything
         // -- Audio
-        audioComponent.enabled = false;
+  //      audioComponent.enabled = false;
         // -- collider
         coliderComponent.enabled = false;
         // -- Moving
@@ -87,7 +87,7 @@ public class BossScript : MonoBehaviour
 
         // Enable everything
         // -- Audio
-        audioComponent.enabled = true;
+    //    audioComponent.enabled = true;
         // -- Collider
         coliderComponent.enabled = true;
         // -- Moving

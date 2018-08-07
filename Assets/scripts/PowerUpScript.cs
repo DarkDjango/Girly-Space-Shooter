@@ -10,11 +10,7 @@ public class PowerUpScript : MonoBehaviour {
 	void Start () {
 		
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
-		Physics2D.IgnoreLayerCollision (0, 7);
-	}
+
 	void Update () {
 		if (powerGet)
 			Destroy (gameObject);

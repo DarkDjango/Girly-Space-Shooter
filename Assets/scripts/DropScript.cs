@@ -5,7 +5,6 @@ using UnityEngine;
 public class DropScript : MonoBehaviour {
 	public Transform droppedItem;
 	public int dropProb;
-
 	void OnDestroy()
 	{
 		int randomNumber = Random.Range(1,101);

@@ -1,12 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HUDScript : MonoBehaviour {
 	public int HudType;
 	// 0 - Life System
 	public int extraInfo;
-	private SpriteRenderer sprite;
+	private Image image;
 	private LifeSystemScript lifeSystem;
 	private GameObject 	livePlayer;
 	private PlayerScript player;
@@ -14,7 +15,7 @@ public class HUDScript : MonoBehaviour {
 	public int pos;
 	// Use this for initialization
 	void Start () {
-		sprite = GetComponent<SpriteRenderer>();
+		image = GetComponent<Image>();
 		lifeSystem = transform.parent.parent.gameObject.GetComponent<LifeSystemScript> ();
 	}
 
@@ -22,39 +23,39 @@ public class HUDScript : MonoBehaviour {
 	void Update () {
 		if (HudType == 0) {
 			if (lifeSystem.lifeNum >= extraInfo)
-				sprite.enabled = true;
+				image.enabled = true;
 			else
-				sprite.enabled = false;
+				image.enabled = false;
 		} else 	if (HudType == 1) {
 			livePlayer = GameObject.FindGameObjectWithTag("Char");
 			if (livePlayer != null){
 				player = livePlayer.GetComponent<PlayerScript> ();
 				if (player.shotLevel < 25) {
-					sprite.sprite = Bar [0];
+					image.sprite = Bar [0];
 				}	else if ((player.shotLevel >=25)&&(player.shotLevel < 50)) {
-					sprite.sprite = Bar [1];
+					image.sprite = Bar [1];
 				} 	else if ((player.shotLevel >=50)&&(player.shotLevel < 75)) {
-					sprite.sprite = Bar [2];
+					image.sprite = Bar [2];
 				} 	else if ((player.shotLevel >=75)&&(player.shotLevel < 100)) {
-					sprite.sprite = Bar [3];
+					image.sprite = Bar [3];
 				} 	else if ((player.shotLevel >=100)&&(player.shotLevel < 125)) {
-					sprite.sprite = Bar [4];
+					image.sprite = Bar [4];
 				} 	else if ((player.shotLevel >=125)&&(player.shotLevel < 150)) {
-					sprite.sprite = Bar [5];
+					image.sprite = Bar [5];
 				} 	else if ((player.shotLevel >=150)&&(player.shotLevel < 175)) {
-					sprite.sprite = Bar [6];
+					image.sprite = Bar [6];
 				} 	else if ((player.shotLevel >=175)&&(player.shotLevel < 200)) {
-					sprite.sprite = Bar [7];
+					image.sprite = Bar [7];
 				} 	else if ((player.shotLevel >=200)&&(player.shotLevel < 225)) {
-					sprite.sprite = Bar [8];
+					image.sprite = Bar [8];
 				} 	else if ((player.shotLevel >=225)&&(player.shotLevel < 250)) {
-					sprite.sprite = Bar [9];
+					image.sprite = Bar [9];
 				} 	else if ((player.shotLevel >=250)&&(player.shotLevel < 275)) {
-					sprite.sprite = Bar [10];
+					image.sprite = Bar [10];
 				} 	else if ((player.shotLevel >=275)&&(player.shotLevel < 300)) {
-					sprite.sprite = Bar [11];
+					image.sprite = Bar [11];
 				} 	else if (player.shotLevel >=300) {
-					sprite.sprite = Bar [12];
+					image.sprite = Bar [12];
 				} 
 			} 
 		}  else if (HudType == 2) {
@@ -66,7 +67,7 @@ public class HUDScript : MonoBehaviour {
 					pos = 0;
 				else if (pos > 30)
 					pos = 30;
-				sprite.sprite = Bar [pos];
+				image.sprite = Bar [pos];
 			} 
 		}
 	}

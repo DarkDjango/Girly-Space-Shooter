@@ -16,11 +16,13 @@ public class PlayerScript : MonoBehaviour {
 	public int setElement2;
 	public int shotElement;
 	public bool shieldActive;
+	public int GotNewPower = 0;
 	// 0 - None
 	// 1 - Water
 	// 2 - Earth
 	// 3 - Air
 	// 4 - Fire
+	// 5 - Random
 	public int shotLevel;
 	public int magic;
 	public float magicCooldown;
@@ -195,7 +197,8 @@ public class PlayerScript : MonoBehaviour {
 	//		HealthScript enemyHealth = enemy.GetComponent<HealthScript>();
 	//		if (enemyHealth != null) enemyHealth.Damage(enemyHealth.hp);
 
-			damagePlayer = true;
+			if (!((setElement2==2)&&(shieldActive)))
+				damagePlayer = true;
 		}
 		// Damage the player
 		if (damagePlayer)
@@ -213,6 +216,18 @@ public class PlayerScript : MonoBehaviour {
 			shotLevel += powerup.shotXP;
 			powerup.powerGet = true;
 		
+		}
+
+		ElementPowerScript elePower = other.gameObject.GetComponent<ElementPowerScript> ();
+		if (elePower != null) {
+			GotNewPower = elePower.shotElement;
+			elePower.powerGet = true;
+
+		}
+
+		BackgroundLoop loop = other.gameObject.GetComponent<BackgroundLoop> ();
+		if (loop != null) {
+			loop.checkpoint = true;
 		}
 	}
 }
