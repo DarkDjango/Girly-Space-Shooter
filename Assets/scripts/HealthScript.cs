@@ -9,7 +9,8 @@ public class HealthScript : MonoBehaviour
 	/// Total hitpoints
 	/// </summary>
 	public int hp = 1;
-
+	public bool reflect = false;
+	public bool shotReflected = false;
 	/// <summary>
 	/// Enemy or player?
 	/// </summary>
@@ -44,14 +45,23 @@ public class HealthScript : MonoBehaviour
 			// Avoid friendly fire
 			if (shot.isEnemyShot != isEnemy)
 			{
-				Damage(shot.damage, shot.isSpreading);
-				if (shot.isFreezing) {
-					freeze = GetComponent<FreezeScript> ();
-					if (freeze != null)
-						freeze.gotShot = true;
+				if (!reflect) {
+					Damage (shot.damage, shot.isSpreading);
+					if (shot.isFreezing) {
+						freeze = GetComponent<FreezeScript> ();
+						if (freeze != null)
+							freeze.gotShot = true;
+					}
+					// Destroy the shot
+					Destroy (shot.gameObject); // Remember to always target the game object, otherwise you will just remove the script
+				} else {
+					shotReflected = true;
+					shot.isEnemyShot = !shot.isEnemyShot;
+					shot.damage = 2 * shot.damage;
+					MoveScript move = otherCollider.gameObject.GetComponent<MoveScript>();
+					move.direction.x = -move.direction.x;
+					move.direction.y = -move.direction.y;
 				}
-				// Destroy the shot
-				Destroy(shot.gameObject); // Remember to always target the game object, otherwise you will just remove the script
 			}
 		}
 		// Is it the Fire Shield?

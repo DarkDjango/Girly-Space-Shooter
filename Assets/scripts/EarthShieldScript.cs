@@ -10,7 +10,6 @@ public class EarthShieldScript : MonoBehaviour {
 	private bool slowed = false;
 	private float magicCooldown;
 	private float magicCooldownTime = 0.25f;
-	public bool hit = false;
 
 	void Start () {
 		player = transform.parent.gameObject.GetComponent<PlayerScript>();	

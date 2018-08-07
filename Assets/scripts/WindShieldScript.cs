@@ -10,7 +10,6 @@ public class WindShieldScript : MonoBehaviour {
 	private bool quickened = false;
 	private float magicCooldown;
 	private float magicCooldownTime = 0.15f;
-	public bool hit = false;
 
 	void Start () {
 		player = transform.parent.gameObject.GetComponent<PlayerScript>();	

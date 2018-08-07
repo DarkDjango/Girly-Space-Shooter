@@ -1,17 +1,20 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\EarthShieldScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\WaterShieldScript.cs">
     <Files>
       <File FileName="Assets\scripts\HUDScript.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\LifeSystemScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\PlayerScript.cs" Line="42" Column="7" />
+      <File FileName="Assets\scripts\PlayerScript.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\OptionScript.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\PowerUpScript.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\WeaponScript.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\ShotLevelScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\EarthShieldScript.cs" Line="17" Column="1" />
-      <File FileName="Assets\scripts\WindShieldScript.cs" Line="37" Column="23" />
-      <File FileName="Assets\scripts\MercyScript.cs" Line="10" Column="24" />
+      <File FileName="Assets\scripts\EarthShieldScript.cs" Line="63" Column="1" />
+      <File FileName="Assets\scripts\WindShieldScript.cs" Line="12" Column="42" />
+      <File FileName="Assets\scripts\MercyScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\HealthScript.cs" Line="61" Column="36" />
+      <File FileName="Assets\scripts\FireShieldScript.cs" Line="37" Column="4" />
+      <File FileName="Assets\scripts\WaterShieldScript.cs" Line="8" Column="32" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
