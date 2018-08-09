@@ -5,7 +5,9 @@ using UnityEngine;
 public class DeathAnScript : MonoBehaviour {
 	public Transform boomPrefab;
 	public float Timer;
-	// Use this for initialization
+	
+	private SpriteRenderer mob;
+
 	void Start () {
 		
 	}
@@ -17,12 +19,17 @@ public class DeathAnScript : MonoBehaviour {
 	void OnDestroy()
 	{
 		var boomTransform = Instantiate(boomPrefab) as Transform;
-		BoomScript boom = boomTransform.gameObject.GetComponent<BoomScript>();
-		// Assign position
-		boomTransform.position = transform.position;
-		if (boom != null)
-		{
-			boom.timer = Timer;
+		
+		
+		mob = GetComponent<SpriteRenderer>();
+		if(mob.IsVisibleFrom(Camera.main)){
+			BoomScript boom = boomTransform.gameObject.GetComponent<BoomScript>();
+			boomTransform.position = transform.position;
+			if (boom != null){
+				boom.timer = Timer;
+			}
 		}
+		
+		
 	}
 }

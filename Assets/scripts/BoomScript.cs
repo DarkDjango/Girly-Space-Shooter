@@ -9,12 +9,16 @@ public class BoomScript : MonoBehaviour {
 	public bool isEnemyDeath = true;
 
 	private AudioSource audio_death;
+	private SpriteRenderer sprite;
 
 	void Start(){
 
 		audio_death = GetComponent<AudioSource>();
+		sprite = GetComponent<SpriteRenderer>();
 		if(isEnemyDeath){
-			audio_death.clip = Resources.Load("sounds/enemy_death.wav") as AudioClip;
+			if(sprite.isVisible){
+				audio_death.clip = Resources.Load("sounds/enemy_death.wav") as AudioClip;
+			}
 		}
 
 	}
