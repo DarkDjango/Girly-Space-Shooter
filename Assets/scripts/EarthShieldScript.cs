@@ -54,7 +54,7 @@ public class EarthShieldScript : MonoBehaviour {
 		ShotScript shot = otherCollider.gameObject.GetComponent<ShotScript> ();
 		if (shot != null) {
 			if (shot.isEnemyShot) {
-				player.magic -= 48;
+				player.magic -= 28;
 				Destroy (shot.gameObject); // Remember to always target the game object, otherwise you will just remove the script
 			}
 		}

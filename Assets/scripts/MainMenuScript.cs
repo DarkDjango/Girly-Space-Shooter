@@ -42,7 +42,7 @@ public class MainMenuScript : MonoBehaviour {
 			eventSystem = GameObject.FindGameObjectWithTag("LifeControl");
 			LifeSystemScript lifeSystem = eventSystem.GetComponent<LifeSystemScript> ();
 			if (lifeSystem != null) {
-				lifeSystem.lifeNum = Lives;
+				lifeSystem.lifeNum = Lives + 1;
 			}
 			Destroy (gameObject);
 		}

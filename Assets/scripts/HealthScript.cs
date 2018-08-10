@@ -59,6 +59,8 @@ public class HealthScript : MonoBehaviour
 					shot.isEnemyShot = !shot.isEnemyShot;
 					shot.damage = 2 * shot.damage;
 					MoveScript move = otherCollider.gameObject.GetComponent<MoveScript>();
+					SpriteRenderer sprite = otherCollider.gameObject.GetComponent<SpriteRenderer> ();
+					sprite.color = new Color (0.8f, 0.8f, 1, 1);
 					move.direction.x = -move.direction.x;
 					move.direction.y = -move.direction.y;
 				}

@@ -6,7 +6,8 @@ using System.Collections;
 /// </summary>
 public class BossScript : MonoBehaviour
 {
-    private bool hasSpawn;
+    private bool hasSpawn, inPosition;
+	public float timer = 5f;
     private MoveScript moveScript;
     private WeaponScript[] weapons;
     private Collider2D coliderComponent;
@@ -62,6 +63,10 @@ public class BossScript : MonoBehaviour
         }
         else
         {
+			if (timer > 0)
+				timer -= Time.deltaTime;
+			else
+				moveScript.speed.x = 0;
             moveScript.direction = new Vector2(moveScript.direction.x, Mathf.Sin(Time.time)*originalDirY);
             // Auto-fire
             foreach (WeaponScript weapon in weapons)

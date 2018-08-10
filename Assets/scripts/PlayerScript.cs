@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerScript : MonoBehaviour {
 
 
@@ -11,10 +11,12 @@ public class PlayerScript : MonoBehaviour {
 
 	// 2 - Store the movement and the component
 	private Vector2 movement;
+	private Scene prevScene;
 	private Rigidbody2D rigidbodyComponent;
 	public int setElement;
 	public int setElement2;
 	public int shotElement;
+	public int currentLives;
 	public bool shieldActive;
 	public int GotNewPower = 0;
 	// 0 - None
@@ -29,6 +31,7 @@ public class PlayerScript : MonoBehaviour {
 	public float magicCooldownTime = 5f;
 	public bool shoot = true;
 	public bool switchElement = true;
+	public bool GotLife = false;
 	public bool switchShield;
 	private float switchTimer = 1;
 	private float shieldTimer = 1;
@@ -130,7 +133,7 @@ public class PlayerScript : MonoBehaviour {
 				shieldActive = false;
 			else
 				shieldActive = true;
-			switchTimer = 1;
+			shieldTimer = 1;
 		}
 
 
@@ -181,7 +184,8 @@ public class PlayerScript : MonoBehaviour {
 	void FixedUpdate()
 	{
 		// 6 - Get the component and store the reference
-		if (rigidbodyComponent == null) rigidbodyComponent = GetComponent<Rigidbody2D>();
+		if (rigidbodyComponent == null) 
+			rigidbodyComponent = GetComponent<Rigidbody2D>();
 
 	}
 
@@ -217,7 +221,13 @@ public class PlayerScript : MonoBehaviour {
 			powerup.powerGet = true;
 		
 		}
+		LifeUpScript lifeup = other.gameObject.GetComponent<LifeUpScript> ();
+		if (lifeup != null) {
 
+			GotLife = true;
+			lifeup.powerGet = true;
+
+		}
 		ElementPowerScript elePower = other.gameObject.GetComponent<ElementPowerScript> ();
 		if (elePower != null) {
 			GotNewPower = elePower.shotElement;

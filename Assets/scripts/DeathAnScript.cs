@@ -13,12 +13,9 @@ public class DeathAnScript : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		
-	}
 	void OnDestroy()
 	{
-		if ((health != null)&&(health.hp==0)) {
+		if ((health != null) && (health.hp<=0)) {
 			var boomTransform = Instantiate(boomPrefab) as Transform;
 			mob = GetComponent<SpriteRenderer>();
 			if(mob.IsVisibleFrom(Camera.main)){
