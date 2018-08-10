@@ -5,11 +5,15 @@ using UnityEngine;
 public class LifeSystemScript : MonoBehaviour {
 	public Transform playerPrefab;
 	private GameObject livePlayer;
+	private GameObject gameOver;
 	private Vector3 pos;
 	public int lifeNum;
 	private int shotLevel;
 	private int shotElement;
-	private bool shoot;
+	private bool shoot;	
+	SpriteRenderer sprite;
+	public float fixedTimer = 10f;
+	private float timer = 0.015f;
 	private PlayerScript player;
 	// Use this for initialization
 	
@@ -34,7 +38,19 @@ public class LifeSystemScript : MonoBehaviour {
 			player.shoot = shoot;
 			lifeNum--;
 		} else {
-			print ("Game Over");
+			GameOver ();
+		}
+	}
+	void GameOver () {
+		sprite = GameObject.FindGameObjectWithTag ("GameOver").GetComponent<SpriteRenderer> ();
+		if (sprite != null) {
+			while (sprite.color != Color.black) {
+				timer = fixedTimer;
+				sprite.color = new Color (sprite.color.r, sprite.color.g, sprite.color.b, sprite.color.a + 0.05f);
+				while (timer > 0) {
+					timer -= Time.deltaTime;
+				}
+			}
 		}
 	}
 }
