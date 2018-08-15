@@ -1,10 +1,10 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\MainMenuScript.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\PlayerScript.cs">
     <Files>
       <File FileName="Assets\scripts\HUDScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\LifeSystemScript.cs" Line="7" Column="2" />
-      <File FileName="Assets\scripts\PlayerScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\LifeSystemScript.cs" Line="11" Column="11" />
+      <File FileName="Assets\scripts\PlayerScript.cs" Line="32" Column="19" />
       <File FileName="Assets\scripts\OptionScript.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\PowerUpScript.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\WeaponScript.cs" Line="1" Column="1" />
@@ -15,7 +15,19 @@
       <File FileName="Assets\scripts\HealthScript.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\FireShieldScript.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\WaterShieldScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\MainMenuScript.cs" Line="38" Column="36" />
+      <File FileName="Assets\scripts\MainMenuScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\BackgroundLoop.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\DropScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\DeathAnScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\BossScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\FadeScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\EnemyScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\MoveScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\JellyMoveScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\IcicleAcelScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\CrystalBossScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\LifeUpScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\ElementPowerScript.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

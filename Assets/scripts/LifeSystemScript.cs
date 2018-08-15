@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class LifeSystemScript : MonoBehaviour {
 	public Transform playerPrefab;
-	public string nextScene;
+	private string nextScene;
 	private GameObject livePlayer;
 	private GameObject gameOver;
 	public bool stageClear = false;
@@ -14,6 +14,7 @@ public class LifeSystemScript : MonoBehaviour {
 	private int shotElement;
 	private int SetElement1;
 	private int SetElement2;
+	private int nextStage;
 	private bool shoot;	
 	SpriteRenderer sprite, sprite2;
 	public float fixedTimer = 0.015f;
@@ -24,10 +25,25 @@ public class LifeSystemScript : MonoBehaviour {
 	// Use this for initialization
 
 	void Start () {
+		do {
+			nextStage = Random.Range (1, 4);
+			if (nextStage == 1)
+				nextScene = "Stage1";
+			else if (nextStage == 2)
+				nextScene = "Stage2";
+			else if (nextStage == 3)
+				nextScene = "Stage3";
+		} while (nextScene == SceneManager.GetActiveScene ().name);
 		livePlayer = GameObject.FindGameObjectWithTag("Char");
 		if (livePlayer != null) {
 			player = livePlayer.GetComponent<PlayerScript> ();
 			lifeNum = player.currentLives;
+		} else {
+			SetElement2 = 0;
+			SetElement1 = 0;
+			shotLevel = 0;
+			shotElement = 0;
+			shoot = true;
 		}
 	}
 	// Update is called once per frame

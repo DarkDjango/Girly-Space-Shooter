@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class MainMenuScript : MonoBehaviour {
 
 	public int Lives = 2;
+	int nextStage;
 	public bool Powers = true;
 	private Scene mainMenuScene;
 	private GameObject eventSystem;
@@ -33,7 +34,13 @@ public class MainMenuScript : MonoBehaviour {
 			Lives--;
 	}
 	public void StartButton () {
-		SceneManager.LoadScene("Stage1");
+		nextStage = Random.Range (1, 4);
+		if (nextStage == 1)
+			SceneManager.LoadScene("Stage1");
+		else if (nextStage == 2)
+			SceneManager.LoadScene("Stage2");	
+		else if (nextStage == 3)
+			SceneManager.LoadScene("Stage3");	
 	}
 	// Update is called once per frame
 	void Update () {

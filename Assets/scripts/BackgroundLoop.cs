@@ -16,6 +16,7 @@ public class BackgroundLoop : MonoBehaviour {
 	public Transform nextSensor;
 	private bool BackGenerated;
 	private GameObject liveBoss;
+	private GameObject livePlayer;
 	public bool checkpoint = false;
 	void Update ()
 	{
