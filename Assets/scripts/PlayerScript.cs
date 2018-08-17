@@ -177,7 +177,8 @@ public class PlayerScript : MonoBehaviour {
 	    );
 
 		// 7 - Move the game object
-		rigidbodyComponent.velocity = movement;
+		if (rigidbodyComponent != null)
+			rigidbodyComponent.velocity = movement;
 
 	}
 

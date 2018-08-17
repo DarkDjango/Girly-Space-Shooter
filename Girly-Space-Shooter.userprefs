@@ -4,7 +4,7 @@
     <Files>
       <File FileName="Assets\scripts\HUDScript.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\LifeSystemScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\PlayerScript.cs" Line="179" Column="1" />
+      <File FileName="Assets\scripts\PlayerScript.cs" Line="182" Column="3" />
       <File FileName="Assets\scripts\OptionScript.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\PowerUpScript.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\WeaponScript.cs" Line="1" Column="1" />
