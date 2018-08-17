@@ -17,6 +17,15 @@ public class HUDScript : MonoBehaviour {
 	void Start () {
 		image = GetComponent<Image>();
 		lifeSystem = transform.parent.parent.gameObject.GetComponent<LifeSystemScript> ();
+
+		#if UNITY_STANDALONE || UNITY_WEBPLAYER
+
+			if(GameObject.FindWithTag("androidButton")){
+				GameObject.FindWithTag("androidButton").SetActive(false);
+			}
+
+		#endif
+
 	}
 
 	// Update is called once per frame

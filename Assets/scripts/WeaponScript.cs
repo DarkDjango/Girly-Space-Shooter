@@ -70,10 +70,10 @@ public class WeaponScript : MonoBehaviour
 	/// <summary>
 	/// Create a new projectile if possible
 	/// </summary>
-	public void Attack(bool isEnemy)
-	{
-		if (CanAttack)
-		{
+	public void Attack(bool isEnemy){
+		
+		if (CanAttack){
+			
 			if (!isEnemy) {				
 				target = GameObject.FindGameObjectWithTag("Char").transform;
 				player = target.GetComponent<PlayerScript>();	

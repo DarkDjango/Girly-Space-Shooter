@@ -40,6 +40,9 @@ public class PlayerScript : MonoBehaviour {
 
 
 	void Start () {
+
+		shoot = true;
+
 	}
 	
 	// Update is called once per frame
@@ -78,27 +81,29 @@ public class PlayerScript : MonoBehaviour {
 			//mousePosition =  Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x,Input.mousePosition.y));
 			
         #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
-            
-            if (Input.touches[0].phase == TouchPhase.Ended){
-				mousePosition.x=0;
-				mousePosition.y=0;
-			}else{
-				mousePosition =  Camera.main.ScreenToWorldPoint(new Vector2(Input.GetTouch(0).position.x,Input.GetTouch(0).position.y));
-			}
+			
+			if (Input.touchCount > 0){
+	            if (Input.touches[0].phase == TouchPhase.Ended){
+					mousePosition.x=0;
+					mousePosition.y=0;
+				}else{
+					mousePosition =  Camera.main.ScreenToWorldPoint(new Vector2(Input.GetTouch(0).position.x,Input.GetTouch(0).position.y));
+				}
 
-			Vector2 comparation = new Vector2(Mathf.Abs(rigidbodyComponent.position.x - mousePosition.x), Mathf.Abs(rigidbodyComponent.position.y - mousePosition.y));
-			if( (comparation.x < distanceCharTouch  && comparation.y <  distanceCharTouch) || (mousePosition.x==0 && mousePosition.y==0) ){
-				inputX = 0;
-				inputY = 0;
-			}else if(comparation.x < distanceCharTouch  && comparation.y >  distanceCharTouch){
-				inputX = 0;
-				inputY = mousePosition.y > rigidbodyComponent.position.y ? 1  : -1;
-			}else if(comparation.x > distanceCharTouch  && comparation.y < distanceCharTouch){
-				inputX = mousePosition.x > rigidbodyComponent.position.x ? 1  : -1;
-				inputY = 0;
-			}else{
-				inputX = mousePosition.x > rigidbodyComponent.position.x ? 1  : -1;
-				inputY = mousePosition.y > rigidbodyComponent.position.y ? 1  : -1;
+				Vector2 comparation = new Vector2(Mathf.Abs(rigidbodyComponent.position.x - mousePosition.x), Mathf.Abs(rigidbodyComponent.position.y - mousePosition.y));
+				if( (comparation.x < distanceCharTouch  && comparation.y <  distanceCharTouch) || (mousePosition.x==0 && mousePosition.y==0) ){
+					inputX = 0;
+					inputY = 0;
+				}else if(comparation.x < distanceCharTouch  && comparation.y >  distanceCharTouch){
+					inputX = 0;
+					inputY = mousePosition.y > rigidbodyComponent.position.y ? 1  : -1;
+				}else if(comparation.x > distanceCharTouch  && comparation.y < distanceCharTouch){
+					inputX = mousePosition.x > rigidbodyComponent.position.x ? 1  : -1;
+					inputY = 0;
+				}else{
+					inputX = mousePosition.x > rigidbodyComponent.position.x ? 1  : -1;
+					inputY = mousePosition.y > rigidbodyComponent.position.y ? 1  : -1;
+				}
 			}
             
         #endif 
@@ -112,8 +117,7 @@ public class PlayerScript : MonoBehaviour {
 		//shoot |= Input.GetButton("Fire2");
 		if (shoot) {
 			WeaponScript weapon = GetComponent<WeaponScript>();
-			if (weapon != null)
-			{
+			if (weapon != null){
 				// false because the player is not an enemy
 				weapon.Attack(false);
 
@@ -122,18 +126,14 @@ public class PlayerScript : MonoBehaviour {
 
 
 		// 5.2 Shield activation button
-
 		switchShield = Input.GetButton ("Fire1");
+
 		if (shieldTimer > 0) {
 			shieldTimer -= Time.deltaTime;
 		}
 
 		if ((switchShield)&&(shieldTimer <= 0)) {
-			if (shieldActive)
-				shieldActive = false;
-			else
-				shieldActive = true;
-			shieldTimer = 1;
+			useShield ();
 		}
 
 
@@ -144,11 +144,7 @@ public class PlayerScript : MonoBehaviour {
 		}
 
 		if ((switchElement)&&(switchTimer <= 0)) {
-			if (shotElement == 0)
-				shotElement = setElement;
-			else
-				shotElement = 0;
-			switchTimer = 1;
+			shootElemental ();
 		}
 
 		// 6 - Make sure we are not outside the camera bounds
@@ -179,6 +175,26 @@ public class PlayerScript : MonoBehaviour {
 		// 7 - Move the game object
 		if (rigidbodyComponent != null)
 			rigidbodyComponent.velocity = movement;
+
+	}
+
+	void useShield(){
+	
+		if (shieldActive)
+			shieldActive = false;
+		else
+			shieldActive = true;
+		shieldTimer = 1;
+
+	}
+
+	void shootElemental(){
+
+		if (shotElement == 0)
+			shotElement = setElement;
+		else
+			shotElement = 0;
+		switchTimer = 1;
 
 	}
 
@@ -241,4 +257,17 @@ public class PlayerScript : MonoBehaviour {
 			loop.checkpoint = true;
 		}
 	}
+
+	public void ActiveShieldAndroid(){
+		if (shieldTimer <= 0) {
+			useShield ();
+		}
+	}
+
+	public void ActiveElementAndroid(){
+		if (switchTimer <= 0) {
+			shootElemental ();
+		}
+	}
+
 }
